@@ -17,4 +17,4 @@ frontend/.env
 
 # IDE
 .vscode/
-.idea/
+.idea/backend/.env
