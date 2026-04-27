@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap');
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: #0a0a0a;
+    color: #e8e8e8;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Thin custom scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+  * { scrollbar-width: thin; scrollbar-color: #2a2a2a transparent; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#e8ff47] text-black font-semibold px-4 py-2 rounded-lg transition-all duration-200
+    hover:bg-[#d4eb3a] hover:scale-[1.02] active:scale-[0.98]
+    disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100;
+  }
+  .btn-ghost {
+    @apply text-zinc-400 hover:text-white px-3 py-2 rounded-lg transition-all duration-200 hover:bg-white/5;
+  }
+  .card {
+    @apply bg-[#111111] rounded-xl border border-white/5;
+  }
+  .input {
+    @apply bg-white/5 border border-white/10 text-white rounded-lg px-3 py-2 w-full
+    focus:outline-none focus:border-[#e8ff47]/50 focus:bg-white/10
+    placeholder-zinc-600 transition-all duration-200;
+  }
+  .glass {
+    background: rgba(10,10,10,0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+}
+
+/* Shimmer animation for skeletons */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #1a1a1a 25%, #242424 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* Content card hover */
+.content-card-wrap {
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+.content-card-wrap:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  z-index: 2;
+}
+.content-card-wrap:hover .card-overlay {
+  opacity: 1;
+}
+.card-overlay {
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+.content-card-wrap:hover .card-poster {
+  filter: brightness(0.6);
+  transition: filter 300ms ease;
+}
+.card-poster {
+  transition: filter 300ms ease;
+}
+
+/* Compact grid card (letterboxd style) */
+.compact-card:hover .compact-overlay {
+  opacity: 1;
+}
+.compact-overlay {
+  opacity: 0;
+  transition: opacity 200ms ease;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+}
