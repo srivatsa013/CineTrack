@@ -13,7 +13,6 @@ import numpy as np
 import logging
 from typing import List, Dict, Optional, Tuple
 from sklearn.metrics.pairwise import cosine_similarity
-from scipy.sparse import csr_matrix
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +22,6 @@ class CollaborativeFilter:
         self.user_ids: List[str] = []
         self.content_ids: List[str] = []
         self.matrix: Optional[np.ndarray] = None       # users × content
-        self.sparse_matrix: Optional[csr_matrix] = None
         self.user_sim_matrix: Optional[np.ndarray] = None
         self._fitted = False
 
@@ -65,8 +63,7 @@ class CollaborativeFilter:
             self._normalized[i] = row
 
         # Compute user-user similarity
-        self.sparse_matrix = csr_matrix(self._normalized)
-        self.user_sim_matrix = cosine_similarity(self.sparse_matrix)
+        self.user_sim_matrix = cosine_similarity(self._normalized)
         np.fill_diagonal(self.user_sim_matrix, 0)  # ignore self-similarity
 
         self._fitted = True
